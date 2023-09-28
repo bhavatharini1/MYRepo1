@@ -1,19 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: helloworld
+  name: hello-lionel-deployment
 spec:
+  replicas: 1 # Set the desired number of replicas as needed
   selector:
     matchLabels:
-      app: helloworld
-  replicas: 1 # tells deployment to run 1 pods matching the template
-  template: # create pods using pod definition in this template
+      app: hello-lionel
+  template:
     metadata:
       labels:
-        app: helloworld
+        app: hello-lionel
     spec:
       containers:
-      - name: helloworld
-        image: karthequian/helloworld:latest
-        ports:
-        - containerPort: 80
+        - name: hello-lionel-container
+          image: hello-lionel:latest # Replace with your Docker image name and tag
+          ports:
+            - containerPort: 8080 # Expose the same port as defined in your Dockerfile
+------
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-lionel-service
+spec:
+  selector:
+    app: hello-lionel # Match the labels with your deployment
+  ports:
+    - protocol: TCP
+      port: 80 # Expose the service on port 80
+      targetPort: 8080 # Forward traffic to the container's port
+  type: LoadBalancer # Use LoadBalancer to expose the service externally (adjust based on your environment)
