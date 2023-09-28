@@ -3,36 +3,17 @@ kind: Deployment
 metadata:
   name: helloworld
 spec:
-  replicas: 1 # Adjust the number of replicas as needed
   selector:
     matchLabels:
       app: helloworld
-  template:
+  replicas: 1 # tells deployment to run 1 pods matching the template
+  template: # create pods using pod definition in this template
     metadata:
       labels:
         app: helloworld
     spec:
       containers:
-        - name: helloworld
-          image: openjdk:8-jdk-alpine
-          ports:
-            - containerPort: 8080
-          env:
-            - name: PORT
-              value: "8080"
-          command: ["java", "-jar", "app.jar"]
-          workingDir: /opt
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: helloworldservice
-spec:
-  selector:
-    app: helloworld
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080 # Port on the container
-  type: NodePort
----
+      - name: helloworld
+        image: karthequian/helloworld:latest
+        ports:
+        - containerPort: 80
