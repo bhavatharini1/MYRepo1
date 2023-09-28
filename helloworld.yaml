@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
         - name: hello-lionel-container
-          image: hello-lionel:latest # Replace with your Docker image name and tag
+          image: bhavatharinione/mynew:one # Replace with your Docker image name and tag
           ports:
             - containerPort: 8080 # Expose the same port as defined in your Dockerfile
-------
+---
 apiVersion: v1
 kind: Service
 metadata:
