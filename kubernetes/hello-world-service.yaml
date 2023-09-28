@@ -1,31 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-world
+  name: helloworld
 spec:
-  replicas: 1 
+  replicas: 2 # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: helloworld
   template:
     metadata:
       labels:
-        app: hello-world
+        app: helloworld
     spec:
       containers:
-      - name: hello-world-pod
-        image: bhavatharinione/world:one
-        ports: 
-        - containerPort: 80
-        - containerPort: 443
+        - name: helloworld
+          image: bhavatharinione/world:one
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+          command: ["java", "-jar", "app.jar"]
+          workingDir: /opt
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-world-service
+  name: helloworldservice
 spec:
   selector:
-    app: hello-world
+    app: helloworld
   ports:
-  - name: http
-    protocol: TCP
-    port: 80
-    targetPort: 8080
-  type: LoadBalancer
+    - protocol: TCP
+      port: 80
+      targetPort: 8080 # Port on the container
+  type: NodePort
