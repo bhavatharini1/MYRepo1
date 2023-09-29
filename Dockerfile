@@ -1,6 +1,5 @@
-FROM openjdk:8-jdk-alpine
-ENV PORT 8080
+FROM openjdk:8-jre-alpine
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8080
-ADD target/my-java-app-1.0-SNAPSHOT.jar app.jar
-WORKDIR /opt
 CMD ["java", "-jar", "app.jar"]
