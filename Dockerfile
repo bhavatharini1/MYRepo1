@@ -5,7 +5,7 @@ FROM openjdk:8-jre-alpine
 WORKDIR /app
 
 # Copy the JAR file into the container
-COPY target/pmy-java-app-1.0-SNAPSHOT.jar app.jar
+COPY target/my-java-app-1.0-SNAPSHOT.jar app.jar
 
 # Expose any necessary ports
 # EXPOSE 8080
