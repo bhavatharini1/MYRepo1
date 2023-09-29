@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oneone-deployment
+spec:
+  replicas: 2 # Set the desired number of replicas as needed
+  selector:
+    matchLabels:
+      app: oneone
+  template:
+    metadata:
+      labels:
+        app: oneone
+    spec:
+      containers:
+        - name: oneone-container
+          image: bhavatharinione/oneone:new # Specify your Docker image
+          ports:
+            - containerPort: 80 # Expose the desired port
