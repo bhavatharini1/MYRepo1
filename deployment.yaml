@@ -1,19 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oneone-deployment
+  name: oneoneone-deployment
 spec:
   replicas: 2 # Set the desired number of replicas as needed
   selector:
     matchLabels:
-      app: oneone
+      app: oneoneone
   template:
     metadata:
       labels:
-        app: oneone
+        app: oneoneone
     spec:
       containers:
-        - name: oneone-container
+        - name: oneoneone-container
           image: bhavatharinione/oneone:new # Specify your Docker image
           ports:
-            - containerPort: 80 # Expose the desired port
+            - containerPort: 8080 # Expose port 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oneoneone-service
+spec:
+  selector:
+    app: oneoneone # Select pods with the label "app: oneone"
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080 # Route traffic to port 8080 on pods
+  type: ClusterIP
